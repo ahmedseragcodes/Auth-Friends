@@ -4,11 +4,13 @@ import { Link, Route, useHistory, Switch } from "react-router-dom";
 import styled from "styled-components";
 import axios from 'axios';
 
+
 //utility function import 
 import axiosWithAuth from "./utilz/axiosWithAuth";
 
 //component import 
 import FriendsList from "./components/FriendsList";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 
@@ -37,6 +39,7 @@ function App() {
 
   const login = (event) => {
     event.preventDefault();
+    console.log(formValues);
     axios.post("http://localhost:5000/api/login", formValues)
     .then((res)=>{
       console.log("APP COMP, LOGIN EVENT HANDLER, AXIOS  SUCCESS", res);
@@ -97,8 +100,8 @@ function App() {
         </form>
       </LoginForm>
       <Switch>
-        <Route exact path="/login" />
-        <Route path="/protected" component={FriendsList} />
+        <Route exact path="/login"  />
+        <PrivateRoute path="/protected" component={FriendsList} />
       </Switch>
     </FrontPage>
   );
