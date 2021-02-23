@@ -40,7 +40,7 @@ function App() {
     axios.post("http://localhost:5000/api/login", formValues)
     .then((res)=>{
       console.log("APP COMP, LOGIN EVENT HANDLER, AXIOS  SUCCESS", res);
-      localStorage.setItem("token", JSON.stringify(res));
+      localStorage.setItem("token", JSON.stringify(res.data.payload));
       history.push("/login");
     })
     .catch((err)=>{
@@ -57,6 +57,10 @@ function App() {
     .then(()=>{
       localStorage.removeItem("token");
       history.push("/login");
+      setFormValues({
+        username: "",
+        password: "",
+      })
     })
     .catch((err)=>{
       console.log("APP, LOGOUT HANDLER, AXIOS FAIL", err)

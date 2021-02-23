@@ -62,7 +62,7 @@ function authenticator(req, res, next) {
 
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'Lambda School' && password === 'i<3Lambd4') {
+  if (username === 'Lambda' && password === 'School') {
     req.loggedIn = true;
     res.status(200).json({
       payload: token
@@ -72,6 +72,14 @@ app.post('/api/login', (req, res) => {
       .status(403)
       .json({ error: 'Username or Password incorrect. Please see Readme' });
   }
+});
+
+//ADDED IN
+app.post("/api/logout", (req, res) => {
+  //remove token from database
+  res.status(200).json({
+    payload: token,
+  });
 });
 
 app.get('/api/friends', authenticator, (req, res) => {
