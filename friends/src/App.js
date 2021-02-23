@@ -39,12 +39,11 @@ function App() {
 
   const login = (event) => {
     event.preventDefault();
-    console.log(formValues);
     axios.post("http://localhost:5000/api/login", formValues)
     .then((res)=>{
       console.log("APP COMP, LOGIN EVENT HANDLER, AXIOS  SUCCESS", res);
       localStorage.setItem("token", JSON.stringify(res.data.payload));
-      history.push("/login");
+      history.push("/protected");
     })
     .catch((err)=>{
       console.log("APP COMP, LOGIN EVENT HANDLER, AXIOS FAIL", err);

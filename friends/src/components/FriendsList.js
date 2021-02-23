@@ -21,7 +21,7 @@ class FriendsList extends React.Component{
         .then((res)=>{
             console.log("FRIENDSLIST, GET FRIENDS HANDLER, AXIOS SUCCESS", res);
             this.setState({
-                friends: [res.data]
+                friends: res.data
             })
         })
         .catch((err)=>{
@@ -30,10 +30,12 @@ class FriendsList extends React.Component{
     }
 
     render(){
+        console.log(this.state.friends)
         return (
             <div>
+                <h1>My Friends</h1>
                {this.state.friends.map((friend)=>{
-                   return <p>{friend}</p>
+                   return <p style={{fontSize: "1.5rem"}}>{friend.name}</p>
                })}
             </div>
         )
