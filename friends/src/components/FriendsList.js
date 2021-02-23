@@ -31,6 +31,9 @@ class FriendsList extends React.Component{
 
     render(){
         console.log(this.state.friends)
+        if (this.state.friends.length===0){
+            return <h2>Friends Loading</h2>
+        }
         return (
             <div>
                 <h1>My Friends</h1>
