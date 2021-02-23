@@ -1,15 +1,21 @@
 import './App.css';
 import React, { useState } from "react";
-import { Link, Route, useHistory } from "react-router-dom";
+import { Link, Route, useHistory, Switch } from "react-router-dom";
 import styled from "styled-components";
 import axios from 'axios';
+
+//utility function import 
 import axiosWithAuth from "./utilz/axiosWithAuth";
 
+//component import 
+import FriendsList from "./components/FriendsList";
 
 function App() {
 
+  //History Object Import / Hook
   const history=useHistory();
 
+  //State 
   const [formValues, setFormValues]=useState({
     username: "",
     password: "", 
@@ -17,8 +23,7 @@ function App() {
 
   const [errors, setErrors]=useState([]);
 
-  const [friends, setFriends]=useState([]);
-
+  //Event Handlers / Helper Functions 
   const handleChange = (event) => {
 
     const { name, value }=event.target;
@@ -44,9 +49,18 @@ function App() {
         err.response.data.error
       ])
     })
-    
+  }
 
-
+  const logout = () => {
+    axiosWithAuth()
+    .post("/api/logout")
+    .then(()=>{
+      localStorage.removeItem("token");
+      history.push("/login");
+    })
+    .catch((err)=>{
+      console.log("APP, LOGOUT HANDLER, AXIOS FAIL", err)
+    })
   }
 
   return (
@@ -57,7 +71,7 @@ function App() {
             <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link>Logout</Link>
+            <Link onClick={logout}>Logout</Link>
           </li>
           <li>
             <Link to="/protected">Protected Page</Link>
@@ -78,6 +92,10 @@ function App() {
         })}
         </form>
       </LoginForm>
+      <Switch>
+        <Route exact path="/login" />
+        <Route path="/protected" component={FriendsList} />
+      </Switch>
     </FrontPage>
   );
 }
