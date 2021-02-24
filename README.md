@@ -1,3 +1,10 @@
+npm install in react app
+npm start in react app
+since server file is outside react app, do npm start there
+if changes are made to server file, server needs to be re-loaded
+
+
+
 # Auth Friends
 
 Topics:
